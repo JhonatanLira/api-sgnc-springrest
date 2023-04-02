@@ -12,4 +12,6 @@ public interface EmpresaRepository extends JpaRepository<Empresa, String>{
 	
 	Optional<Empresa> findByCnpj(String cnpj);
 
+	void deleteByCnpj(String cnpj);
+
 }

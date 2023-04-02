@@ -67,7 +67,8 @@ public class EmpresaController {
 		}
 
 		empresa.setCnpj(cnpj);
-		empresaRepository.save(empresa);
+		//empresaRepository.save(empresa);
+		empresaService.adicionar(empresa);
 
 		return ResponseEntity.ok(empresa);
 	}
@@ -76,6 +77,7 @@ public class EmpresaController {
 	public ResponseEntity<Void> deletar(@PathVariable String cnpj) {
 
 		if (empresaRepository.existsById(cnpj)) {
+			empresaService.remover(cnpj);
 			return ResponseEntity.notFound().build();
 		}
 
