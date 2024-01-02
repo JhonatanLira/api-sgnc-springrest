@@ -1,20 +1,14 @@
 package br.com.sgnc.web.controller;
 
+
 import java.util.List;
-import java.util.Optional;
 
-import javax.validation.Valid;
-
+import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.sgnc.domain.model.Empresa;
 import br.com.sgnc.domain.repository.EmpresaRepository;
@@ -24,64 +18,60 @@ import br.com.sgnc.domain.service.EmpresaService;
 @RequestMapping("/empresas")
 public class EmpresaController {
 
-	@Autowired
-	EmpresaRepository empresaRepository;
-	
-	@Autowired
-	EmpresaService empresaService;
+    @Autowired
+    EmpresaRepository empresaRepository;
+    @Autowired
+    EmpresaService empresaService;
 
-	@GetMapping
-	public List<Empresa> listar() {
+    @GetMapping
+    public List<Empresa> listar() {
 
-		return empresaRepository.findAll();
+        return empresaRepository.findAll();
 
-	}
+    }
 
-	@PostMapping
-	public ResponseEntity<Empresa> salvar(@Valid @RequestBody Empresa empresa) {
+    @GetMapping("/{idEmpresa}")
+    public ResponseEntity<Empresa> buscarPorId(@PathVariable Long idEmpresa) {
 
-		//empresaRepository.save(empresa);
-		empresaService.adicionar(empresa);
+        if (empresaRepository.findById(idEmpresa).isPresent()) {
+            return ResponseEntity.ok(empresaRepository.findById(idEmpresa).get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+    //Busca por CNPJ
 
-		return ResponseEntity.created(null).build();
-	}
+    @PostMapping
+    public ResponseEntity<Empresa> adicionarEmpresa(@RequestBody @Valid Empresa empresa) {
 
-	@GetMapping("/{cnpj}")
-	public ResponseEntity<Empresa> buscarPorCnpj(@PathVariable String cnpj) {
+        if (empresa != null) {
+            empresaService.empresaSave(empresa);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 
-		Optional<Empresa> empresaOptional = empresaRepository.findByCnpj(cnpj);
+    @PutMapping("/{idEmpresa}")
+    public ResponseEntity<Empresa> atualizarEmpresa(@PathVariable Long idEmpresa, @RequestBody Empresa empresaAtualizada) {
 
-		if (empresaOptional.isPresent()) {
+        if (empresaRepository.findById(idEmpresa).isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
 
-			return ResponseEntity.ok(empresaOptional.get());
+        Empresa empresa = empresaRepository.findById(idEmpresa).get();
+        BeanUtils.copyProperties(empresaAtualizada, empresa, "idEmpresa");
+
+        empresaService.empresaSave(empresa);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+	@DeleteMapping("/{idEmpresa}")
+	public ResponseEntity<Empresa> deletarEmpesaPorId(@PathVariable Long idEmpresa){
+
+		if (empresaRepository.findById(idEmpresa).isEmpty()){
+			return ResponseEntity.noContent().build();
 		}
-
-		return ResponseEntity.notFound().build();
-	}
-
-	@PutMapping("/{cnpj}")
-	public ResponseEntity<Empresa> atulializar(@Valid @PathVariable String cnpj, @RequestBody Empresa empresa) {
-
-		if (!empresaRepository.existsById(cnpj)) {
-			return ResponseEntity.notFound().build();
-		}
-
-		empresa.setCnpj(cnpj);
-		//empresaRepository.save(empresa);
-		empresaService.adicionar(empresa);
-
-		return ResponseEntity.ok(empresa);
-	}
-
-	@DeleteMapping("/{cnpj}")
-	public ResponseEntity<Void> deletar(@PathVariable String cnpj) {
-
-		if (empresaRepository.existsById(cnpj)) {
-			empresaService.remover(cnpj);
-			return ResponseEntity.notFound().build();
-		}
-
-		return ResponseEntity.noContent().build();
+        empresaService.empresaDeleteById(idEmpresa);
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
 }
