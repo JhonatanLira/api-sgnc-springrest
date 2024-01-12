@@ -14,7 +14,9 @@ public class Setor {
     private Long idSetor;
 
     @Column(name = "nome_setor", nullable = false)
-    @Size(min = 3)
+    @Size(min = 2)
     private String nomeSetor;
-
+    @ManyToOne
+    @JoinColumn(name = "fk_empresa")
+    private Empresa empesa;
 }
