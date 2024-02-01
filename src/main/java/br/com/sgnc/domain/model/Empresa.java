@@ -2,7 +2,9 @@ package br.com.sgnc.domain.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.List;
 @Entity
 @Table(name = "empresa")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Empresa implements Serializable {
 
 	private static final long serialVersionUID = 1L;

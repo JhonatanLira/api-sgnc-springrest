@@ -3,6 +3,8 @@ package br.com.sgnc.web.controller;
 
 import java.util.List;
 
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import br.com.sgnc.domain.model.Empresa;
 import br.com.sgnc.domain.repository.EmpresaRepository;
 import br.com.sgnc.domain.service.EmpresaService;
-
+@Tag(name = "EMPRESA", description = "CRUD da empresa proprietária do veículos")
 @RestController
 @RequestMapping("/empresas")
 public class EmpresaController {
@@ -75,3 +77,6 @@ public class EmpresaController {
 	}
 
 }
+//http://localhost:8080/swagger-ui.html
+//https://medium.com/@f.s.a.kuzman/using-swagger-3-in-spring-boot-3-c11a483ea6dc
+//https://www.schoolofnet.com/curso/nodejs/outros-frameworks-nodejs/swagger-e-jsdocs/

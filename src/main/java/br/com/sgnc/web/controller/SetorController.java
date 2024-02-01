@@ -4,6 +4,7 @@ import br.com.sgnc.domain.model.Setor;
 import br.com.sgnc.domain.repository.SetorRepository;
 import br.com.sgnc.domain.service.SetorService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Tag(name = "SETOR", description = "CRUD dos setores da empresa proprietária do veículos")
 @RestController
 @RequestMapping("/setores")
 public class SetorController {
