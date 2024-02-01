@@ -27,7 +27,7 @@ public class Empresa implements Serializable {
 	private String razaoSocial;
 	@Column(name = "nome_fantasia")
 	private String nomeFantasia;
-	@OneToMany
-	@Column(name = "setores_empresa")
-	private List<Setor> setores;
+	//@OneToMany
+	//@Column(name = "setores_empresa")
+	//private List<Setor> setores;
 }

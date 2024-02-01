@@ -2,10 +2,15 @@ package br.com.sgnc.domain.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "funcionario")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Funcionario {
 
     @Id

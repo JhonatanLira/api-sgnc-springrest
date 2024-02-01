@@ -2,11 +2,15 @@ package br.com.sgnc.domain.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "setor")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Setor {
 
     @Id
