@@ -6,4 +6,6 @@ foram utilizadas para que a mesma fosse restaurado.</p>
 
 <p>As técnologias utilizadas são: linguagem Java, framework Spring, SGBD MySQL,Swagger  </p>
 
-<img href="sgnc-swagger1.png">
+  <img src="sgnc-swagger1.png" style="width:720px;height:400px;align-items:right;">
+
+
