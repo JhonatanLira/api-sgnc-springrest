@@ -4,7 +4,7 @@ package br.com.sgnc.web.controller;
 import java.util.List;
 
 
-import io.swagger.v3.oas.annotations.tags.Tag;
+//import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import br.com.sgnc.domain.model.Empresa;
 import br.com.sgnc.domain.repository.EmpresaRepository;
 import br.com.sgnc.domain.service.EmpresaService;
-@Tag(name = "EMPRESA", description = "CRUD da empresa proprietária do veículos")
+//@Tag(name = "EMPRESA", description = "CRUD da empresa proprietária do veículos")
 @RestController
 @RequestMapping("/empresas")
 public class EmpresaController {
